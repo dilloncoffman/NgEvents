@@ -6,6 +6,10 @@ import { Injectable } from '@angular/core';
 export class EventService {
   constructor() {}
 
+  getEvent(id: number) {
+    return EVENTS.find((event) => event.id === id);
+  }
+
   getEvents() {
     return EVENTS;
   }
@@ -19,7 +23,11 @@ const EVENTS = [
     time: '10:00 am',
     price: 599.99,
     imageUrl: '/assets/images/angularconnect-shield.png',
-    onlineUrl: 'www.onlineUrl.com',
+    location: {
+      address: '1057 DT',
+      city: 'London',
+      country: 'England',
+    },
     sessions: [
       {
         id: 1,

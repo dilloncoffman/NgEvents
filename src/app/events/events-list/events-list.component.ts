@@ -3,7 +3,6 @@ import { EventService } from '../shared/event.service';
 import { ToastrService } from 'src/app/common/toastr.service';
 
 @Component({
-  selector: 'events-list',
   templateUrl: './events-list.component.html',
   styleUrls: ['./events-list.component.css'],
 })
