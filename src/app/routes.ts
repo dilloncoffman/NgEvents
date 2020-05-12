@@ -4,6 +4,7 @@ import { EventDetailsComponent } from './events/event-details/event-details/even
 import { CreateEventComponent } from './events/shared/create-event/create-event.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { EventRouteActivatorService } from './events/event-details/event-route-activator.service';
+import { EventsListResolverService } from './events/shared/events-list-resolver.service';
 
 export const appRoutes: Routes = [
   {
@@ -11,7 +12,11 @@ export const appRoutes: Routes = [
     component: CreateEventComponent,
     canDeactivate: ['canDeactivateCreateEvent'],
   },
-  { path: 'events', component: EventsListComponent },
+  {
+    path: 'events',
+    component: EventsListComponent,
+    resolve: { events: EventsListResolverService }, // before resolving the /events route, call EventListResolver, when that resolver finishes and returns data, add that data to the route as a property named events
+  },
   {
     path: 'events/:id',
     component: EventDetailsComponent,
