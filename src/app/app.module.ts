@@ -14,6 +14,8 @@ import { CreateEventComponent } from './events/shared/create-event/create-event.
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { EventRouteActivatorService } from './events/event-details/event-route-activator.service';
 import { EventsListResolverService } from './events/shared/events-list-resolver.service';
+import { ProfileComponent } from './user/profile/profile.component';
+import { LoginComponent } from './user/login/login.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { EventsListResolverService } from './events/shared/events-list-resolver.
     EventDetailsComponent,
     CreateEventComponent,
     NotFoundComponent,
+    LoginComponent,
   ],
   imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
   providers: [
