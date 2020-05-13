@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IEvent, EventService } from '../shared';
+import { EventService } from '../shared';
 
 @Component({
   selector: 'app-create-event',
