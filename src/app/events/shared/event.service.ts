@@ -20,6 +20,12 @@ export class EventService {
     }, 100);
     return subject;
   }
+
+  saveEvent(event) {
+    event.id = 999;
+    event.session = [];
+    EVENTS.push(event);
+  }
 }
 
 const EVENTS: IEvent[] = [
