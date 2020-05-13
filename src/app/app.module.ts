@@ -7,7 +7,6 @@ import { NavbarComponent } from './nav/navbar/navbar.component';
 import { ToastrService } from './common/toastr.service';
 import { appRoutes } from './routes';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
-import { LoginComponent } from './user/login/login.component';
 
 import {
   CreateEventComponent,
@@ -27,8 +26,7 @@ import {
     NavbarComponent,
     EventDetailsComponent,
     CreateEventComponent,
-    NotFoundComponent,
-    LoginComponent,
+    NotFoundComponent
   ],
   imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
   providers: [
