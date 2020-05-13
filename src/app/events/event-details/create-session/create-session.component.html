@@ -66,13 +66,15 @@
         >Required</em
       >
       <em
-        *ngIf="
-          abstract.invalid &&
-          abstract.dirty &&
-          abstract?.errors.required &&
-          abstract?.errors.maxlength
-        "
+        *ngIf="abstract.invalid && abstract.dirty && abstract?.errors.maxlength"
         >Cannot exceed 400 characters</em
+      >
+      <!-- Custom validator restrictedWords, custom error message -->
+      <em
+        *ngIf="
+          abstract.invalid && abstract.dirty && abstract?.errors.restrictedWords
+        "
+        >Restricted words found: {{ abstract.errors.restrictedWords }}</em
       >
       <textarea
         formControlName="abstract"

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { ISession } from '../../shared/event';
+import { ISession, restrictedWords } from '../../shared/index';
 
 @Component({
   selector: 'app-create-session',
@@ -25,7 +25,9 @@ export class CreateSessionComponent implements OnInit {
     this.abstract = new FormControl('', [
       Validators.required,
       Validators.maxLength(400),
+      restrictedWords(['foo', 'bar']),
     ]);
+    // Validators array is just an array of functions to be run to validate the FormControl
 
     this.newSessionForm = new FormGroup({
       name: this.name,
