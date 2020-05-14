@@ -1,8 +1,16 @@
 import { Directive } from '@angular/core';
-import { Validator, FormGroup } from '@angular/forms';
+import { Validator, FormGroup, NG_VALIDATORS } from '@angular/forms';
 
 @Directive({
   selector: '[validateLocation]',
+  // Every Component/Directive has its OWN dependency injector it can use to register services so we can use providers: [] here
+  providers: [
+    {
+      provide: NG_VALIDATORS, // NG_VALIDATORS is a token representing a list of validator services
+      useExisting: LocationValidatorDirective, // service we want to register with existing validator services
+      multi: true, // allows us to register the new LocationValidatorService ON TO the list of NG_VALIDATORS services
+    },
+  ],
 })
 export class LocationValidatorDirective implements Validator {
   constructor() {}
