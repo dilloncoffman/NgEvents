@@ -4,9 +4,8 @@ import { RouterModule } from '@angular/router';
 
 import { EventsAppComponent } from './events-app.component';
 import { NavbarComponent } from './nav/navbar/navbar.component';
-import { TOASTR_TOKEN, Toastr } from './common/toastr.service'; // import token to define in Angular dependency registry to use instance of toastr
-import { appRoutes } from './routes';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { appRoutes } from './routes';
 
 import {
   CreateEventComponent,
@@ -18,15 +17,21 @@ import {
   EventsListResolverService,
   DurationPipe,
 } from './events/index';
+import {
+  JQUERY_TOKEN,
+  TOASTR_TOKEN,
+  Toastr,
+  CollapsibleWellComponent,
+} from './common/index'; // import token to define in Angular dependency registry to use instance of toastr
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateSessionComponent } from './events/event-details/create-session/create-session.component';
 import { SessionListComponent } from './events/event-details/session-list/session-list.component';
-import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-well.component';
 
-declare let toastr: Toastr; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
+let toastr: Toastr = window['toastr']; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
+let jQuery: Object = window['$'];
 
-@NgModule({ 
+@NgModule({
   declarations: [
     EventsAppComponent,
     EventsListComponent,
@@ -49,6 +54,7 @@ declare let toastr: Toastr; // let TypeScript know not to worry about Toastr sin
   providers: [
     EventService,
     { provide: TOASTR_TOKEN, useValue: toastr },
+    { provide: JQUERY_TOKEN, useValue: jQuery },
     EventRouteActivatorService,
     { provide: 'canDeactivateCreateEvent', useValue: checkDirtyState },
     EventsListResolverService,
