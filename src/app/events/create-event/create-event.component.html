@@ -113,9 +113,12 @@
       />
     </div>
 
-    <div ngModelGroup="location" validateLocation>
+    <div ngModelGroup="location" #locationGroup="ngModelGroup" validateLocation>
       <div class="form-group">
         <label for="address">Event Location:</label>
+        <em *ngIf="locationGroup?.invalid && locationGroup?.touched"
+          >You must either enter the full location OR an online url</em
+        >
         <input
           (ngModel)="(newEvent.address)"
           name="address"
@@ -185,8 +188,18 @@
         "
         >Must be a png or jpg url</em
       >
+
+      <!-- (change) gets reference to ngModelGroup for location
+      and calls updateValueAndValidity() which says every time
+      the imageUrl input changes, rerun the validation for the address
+      input but also for the validateLocation directive element as well
+      since that directive is on a parent of the address <input> element
+      -->
       <input
         (ngModel)="(newEvent.imageUrl)"
+        (change)="
+          locationGroup.control.controls.address.updateValueAndValidity()
+        "
         name="imageUrl"
         required
         pattern=".*\/.*.(png|jpg)"
@@ -201,13 +214,14 @@
       />
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
     <button
-      type="button"
       [disabled]="newEventForm.invalid"
-      class="btn btn-default"
-      (click)="cancel()"
+      type="submit"
+      class="btn btn-primary"
     >
+      Save
+    </button>
+    <button type="button" class="btn btn-default" (click)="cancel()">
       Cancel
     </button>
   </form>
