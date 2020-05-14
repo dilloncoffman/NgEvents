@@ -62,10 +62,22 @@
             placeholder="Search Sessions"
           />
         </div>
-        <button class="btn btn-default">
+        <button class="btn btn-default" modal-trigger>
           Search
         </button>
       </form>
     </div>
   </div>
 </div>
+
+<simple-modal title="Matching Sessions">
+  <div class="list-group">
+    <!-- '/' before 'events' in the routerLink will make sure app goes to root our app before trying to navigate to a specific events route -->
+    <a
+      *ngFor="let session of foundSessions"
+      [routerLink]="['/events', session.eventId]"
+      class="list-group-item"
+      >{{ session.name }}</a
+    >
+  </div>
+</simple-modal>
