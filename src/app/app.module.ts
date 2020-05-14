@@ -31,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateSessionComponent } from './events/event-details/create-session/create-session.component';
 import { SessionListComponent } from './events/event-details/session-list/session-list.component';
 import { UpvoteComponent } from './events/event-details/upvote/upvote.component';
+import { LocationValidatorDirective } from './events/location-validator.directive';
 let toastr: Toastr = window['toastr']; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
 let jQuery: Object = window['$'];
 
@@ -50,6 +51,7 @@ let jQuery: Object = window['$'];
     SimpleModalComponent,
     ModalTriggerDirective,
     UpvoteComponent,
+    LocationValidatorDirective,
   ],
   imports: [
     BrowserModule,
