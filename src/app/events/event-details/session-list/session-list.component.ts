@@ -15,7 +15,7 @@ export class SessionListComponent implements OnInit, OnChanges {
   visibleSessions: ISession[] = []; // Using to show filtered sessions as a subset of sessions var itself
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private voterService: VoterService
   ) {}
 
