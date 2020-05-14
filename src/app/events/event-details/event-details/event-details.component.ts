@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../shared/event.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { IEvent, ISession } from '../../shared/event';
 
 @Component({
@@ -19,9 +19,11 @@ export class EventDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.event = this.eventService.getEvent(
-      +this.activatedRoute.snapshot.params['id'] // + just casts string of id to a number, since getEvent expects id to be of type number
-    );
+    // Subscribe to route params to use to navigate to a different component - REMEMBER to keep track of what pieces of state are within, in our case we want to make sure addMode is reset to its default false value
+    this.activatedRoute.params.forEach((params: Params) => {
+      this.event = this.eventService.getEvent(+params['id']); // + just casts string param 'id' to a number, since getEvent(id: number)
+      this.addMode = false;
+    });
   }
 
   addSession() {
