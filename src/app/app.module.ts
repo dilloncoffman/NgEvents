@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { EventsAppComponent } from './events-app.component';
 import { NavbarComponent } from './nav/navbar/navbar.component';
-import { ToastrService } from './common/toastr.service';
+import { TOASTR_TOKEN, Toastr } from './common/toastr.service'; // import token to define in Angular dependency registry to use instance of toastr
 import { appRoutes } from './routes';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 
@@ -23,6 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateSessionComponent } from './events/event-details/create-session/create-session.component';
 import { SessionListComponent } from './events/event-details/session-list/session-list.component';
 import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-well.component';
+
+declare let toastr: Toastr; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
 
 @NgModule({
   declarations: [
@@ -46,7 +48,7 @@ import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-
   ],
   providers: [
     EventService,
-    ToastrService,
+    { provide: TOASTR_TOKEN, useValue: toastr },
     EventRouteActivatorService,
     { provide: 'canDeactivateCreateEvent', useValue: checkDirtyState },
     EventsListResolverService,

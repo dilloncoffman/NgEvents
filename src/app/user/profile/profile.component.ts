@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
-  Validators,
-  FormControlName,
+  Validators
 } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
