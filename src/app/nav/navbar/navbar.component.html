@@ -70,7 +70,11 @@
   </div>
 </div>
 
-<simple-modal elementId="searchResults" title="Matching Sessions">
+<simple-modal
+  closeOnBodyClick="true"
+  elementId="searchResults"
+  title="Matching Sessions"
+>
   <div class="list-group">
     <!-- '/' before 'events' in the routerLink will make sure app goes to root our app before trying to navigate to a specific events route -->
     <a

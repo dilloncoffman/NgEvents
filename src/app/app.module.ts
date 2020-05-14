@@ -16,6 +16,7 @@ import {
   EventRouteActivatorService,
   EventsListResolverService,
   DurationPipe,
+  VoterService,
 } from './events/index';
 import {
   JQUERY_TOKEN,
@@ -29,6 +30,7 @@ import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateSessionComponent } from './events/event-details/create-session/create-session.component';
 import { SessionListComponent } from './events/event-details/session-list/session-list.component';
+import { UpvoteComponent } from './events/event-details/upvote/upvote.component';
 let toastr: Toastr = window['toastr']; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
 let jQuery: Object = window['$'];
 
@@ -47,6 +49,7 @@ let jQuery: Object = window['$'];
     DurationPipe,
     SimpleModalComponent,
     ModalTriggerDirective,
+    UpvoteComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ let jQuery: Object = window['$'];
     { provide: 'canDeactivateCreateEvent', useValue: checkDirtyState },
     EventsListResolverService,
     AuthService,
+    VoterService,
   ],
   bootstrap: [EventsAppComponent],
 })
