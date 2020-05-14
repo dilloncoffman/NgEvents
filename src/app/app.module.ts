@@ -26,7 +26,7 @@ import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-
 
 declare let toastr: Toastr; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
 
-@NgModule({
+@NgModule({ 
   declarations: [
     EventsAppComponent,
     EventsListComponent,
