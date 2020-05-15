@@ -12,6 +12,7 @@ export class SessionListComponent implements OnInit, OnChanges {
   @Input() sessions: ISession[];
   @Input() filterBy: string;
   @Input() sortBy: string;
+  @Input() eventId: number;
   visibleSessions: ISession[] = []; // Using to show filtered sessions as a subset of sessions var itself
 
   constructor(
@@ -36,12 +37,14 @@ export class SessionListComponent implements OnInit, OnChanges {
   toggleVote(session: ISession): void {
     if (this.userHasVoted(session)) {
       this.voterService.deleteVoter(
+        this.eventId,
         session,
         this.authService.currentUser.username
       );
     } else {
       // vote for user
       this.voterService.addVoter(
+        this.eventId,
         session,
         this.authService.currentUser.username
       );
