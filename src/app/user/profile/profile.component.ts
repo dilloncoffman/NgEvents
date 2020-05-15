@@ -47,6 +47,14 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  logout(): void {
+    this.authService.logout().subscribe(() => {
+      // Once the user has successfully signed out (when the AuthService Observable returns successfully)
+      // Navigate them to the login page
+      this.router.navigate(['/user/login']);
+    });
+  }
+
   cancel() {
     this.router.navigate(['events']);
   }

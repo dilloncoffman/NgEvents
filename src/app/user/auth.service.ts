@@ -74,4 +74,17 @@ export class AuthService {
       options
     );
   }
+
+  logout() {
+    // Log user out from client perspective
+    this.currentUser = undefined;
+
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    // Log user out from server perspective
+    // pass empty body to log out with the way the dev ngf-server is set up
+    return this.http.post('/api/logout', {}, options);
+  }
 }
