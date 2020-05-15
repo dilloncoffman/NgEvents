@@ -38,6 +38,27 @@ export class AuthService {
     return !!this.currentUser; // !! evaluates and casts to boolean
   }
 
+  checkAuthStatus() {
+    this.http
+      .get('/api/currentIdentity')
+      .pipe(
+        tap((data) => {
+          if (data instanceof Object) {
+            this.currentUser = <User>data;
+          }
+        })
+      )
+      .subscribe();
+
+    // ANOTHER WAY TO CHECK IF USER IS LOGGED IN ALREADY
+    // .subscribe((data) => {
+    //   // null if they're not logged in and a user object if they are
+    //   if (data instanceof Object) {
+    //     this.currentUser = <User>data;
+    //   }
+    // });
+  }
+
   updateCurrentUser(firstName: string, lastName: string) {
     this.currentUser.firstName = firstName;
     this.currentUser.lastName = lastName;
