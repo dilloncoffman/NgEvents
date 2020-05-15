@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { IEvent, ISession } from './event';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -11,28 +11,26 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   getEvent(id: number): Observable<IEvent> {
-    console.log('id for event clicked: ', id);
     return this.http
       .get<IEvent>('/api/events/' + id)
-      .pipe(catchError(this.errorHandler));
+      .pipe(catchError(this.handleError<IEvent>('getEvent')));
   }
 
   getEvents(): Observable<IEvent[]> {
     return this.http
       .get<IEvent[]>('/api/events')
-      .pipe(catchError(this.errorHandler));
+      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
   }
 
   saveEvent(event) {
-    event.id = 999;
-    event.session = [];
-    EVENTS.push(event);
-  }
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 
-  updateEvent(event) {
-    // Find existing event in EVENTS array and replace it
-    let index = EVENTS.findIndex((x) => (x.id = event.id));
-    EVENTS[index] = event;
+    // return this Observable so whoever saves a new event can subscribe to the Observable
+    return this.http
+      .post<IEvent>('/api/events', event, options)
+      .pipe(catchError(this.handleError<IEvent[]>('saveEvent', [])));
   }
 
   searchSessions(searchTerm: string) {
@@ -59,17 +57,11 @@ export class EventService {
   }
 
   // Learn more about RxJS and TypeScript to understand more
-  // private handleError<T>(operation = 'operation', result?: T) {
-  //   console.log(`THERE WAS AN ERROR: ${operation}`);
-  //   return (error: any): Observable<T> => {
-  //     console.error(error);
-  //     return of(result as T);
-  //   };
-  // }
-
-  errorHandler(error: HttpErrorResponse) {
-    console.log('oooof', error);
-    return Observable.throw(error.message || 'server error.');
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
   }
 }
 
