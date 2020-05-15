@@ -38,11 +38,12 @@ export class ProfileComponent implements OnInit {
 
   saveProfile(formValues) {
     if (this.profileForm.valid) {
-      this.authService.updateCurrentUser(
-        formValues.firstName,
-        formValues.lastName
-      );
-      this.toastr.success('Profile Saved');
+      this.authService
+        .updateCurrentUser(formValues.firstName, formValues.lastName)
+        .subscribe(() => {
+          // subscribe lets us show the toast message ONLY if the user has been successfully updated using Observable in auth.service
+          this.toastr.success('Profile Saved');
+        });
     }
   }
 

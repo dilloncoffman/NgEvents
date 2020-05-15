@@ -62,5 +62,16 @@ export class AuthService {
   updateCurrentUser(firstName: string, lastName: string) {
     this.currentUser.firstName = firstName;
     this.currentUser.lastName = lastName;
+
+    let options = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
+
+    // return Observable in order to .subscribe() to it in profile component - we only want the toast message to show in the profile component's saveProfile() if this PUT was successful
+    return this.http.put(
+      `/api/users/${this.currentUser.id}`,
+      this.currentUser,
+      options
+    );
   }
 }
