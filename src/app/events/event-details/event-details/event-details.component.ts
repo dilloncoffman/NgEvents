@@ -19,9 +19,9 @@ export class EventDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Subscribe to route params to use to navigate to a different component - REMEMBER to keep track of what pieces of state are within, in our case we want to make sure addMode is reset to its default false value
-    this.activatedRoute.params.forEach((params: Params) => {
-      this.event = this.eventService.getEvent(+params['id']); // + just casts string param 'id' to a number, since getEvent(id: number)
+    // Recall, any data you resolve to preload on a route will be available in the .data of that route
+    this.activatedRoute.data.forEach((data) => {
+      this.event = data['event'];
       this.addMode = false;
     });
   }

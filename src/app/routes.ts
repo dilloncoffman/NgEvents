@@ -4,9 +4,9 @@ import {
   CreateEventComponent,
   EventsListComponent,
   EventDetailsComponent,
-  EventRouteActivatorService,
   EventsListResolverService,
   CreateSessionComponent,
+  EventResolverService,
 } from './events/index';
 
 export const appRoutes: Routes = [
@@ -23,7 +23,7 @@ export const appRoutes: Routes = [
   {
     path: 'events/:id',
     component: EventDetailsComponent,
-    canActivate: [EventRouteActivatorService],
+    resolve: { event: EventResolverService }, // 'event:' is what's used to get the data from the route in event-details component's ngOnInit so we don't even have to make an HTTP call there, the data will be preloaded for us from the EventResolver on the route
   },
   { path: 'events/session/new', component: CreateSessionComponent },
   {

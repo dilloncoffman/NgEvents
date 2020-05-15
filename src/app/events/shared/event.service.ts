@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Subject, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IEvent, ISession } from './event';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -10,22 +10,17 @@ import { catchError } from 'rxjs/operators';
 export class EventService {
   constructor(private http: HttpClient) {}
 
-  getEvent(id: number): IEvent {
-    return EVENTS.find((event) => event.id === id);
+  getEvent(id: number): Observable<IEvent> {
+    console.log('id for event clicked: ', id);
+    return this.http
+      .get<IEvent>('/api/events/' + id)
+      .pipe(catchError(this.errorHandler));
   }
 
   getEvents(): Observable<IEvent[]> {
     return this.http
       .get<IEvent[]>('/api/events')
-      .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
-  }
-
-  // Learn more about RxJS and TypeScript to understand more
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
+      .pipe(catchError(this.errorHandler));
   }
 
   saveEvent(event) {
@@ -61,6 +56,20 @@ export class EventService {
     }, 100);
 
     return emitter;
+  }
+
+  // Learn more about RxJS and TypeScript to understand more
+  // private handleError<T>(operation = 'operation', result?: T) {
+  //   console.log(`THERE WAS AN ERROR: ${operation}`);
+  //   return (error: any): Observable<T> => {
+  //     console.error(error);
+  //     return of(result as T);
+  //   };
+  // }
+
+  errorHandler(error: HttpErrorResponse) {
+    console.log('oooof', error);
+    return Observable.throw(error.message || 'server error.');
   }
 }
 
