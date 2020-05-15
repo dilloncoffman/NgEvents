@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   mouseoverLogin: boolean;
+  loginInvalid: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -18,8 +19,17 @@ export class LoginComponent implements OnInit {
 
   login(formValues) {
     console.log(formValues);
-    this.authService.loginUser(formValues.username, formValues.password);
-    this.router.navigate(['events']);
+    this.authService
+      .loginUser(formValues.username, formValues.password)
+      .subscribe((response) => {
+        console.log('response for loginForm: ', response);
+        if (!response) {
+          // in AuthService, we return of(false) which returns a false Observable IF there was an HTTP error logging in
+          this.loginInvalid = true;
+        } else {
+          this.router.navigate(['events']);
+        }
+      });
   }
 
   cancel() {
