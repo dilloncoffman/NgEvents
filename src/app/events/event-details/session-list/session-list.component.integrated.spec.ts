@@ -6,6 +6,7 @@ import { VoterService } from '../voter.service';
 import { UpvoteComponent } from '../upvote/upvote.component';
 import { DurationPipe } from '../../shared';
 import { CollapsibleWellComponent } from 'src/app/common';
+import { By } from '@angular/platform-browser';
 
 fdescribe('SessionListComponent', () => {
   let fixture: ComponentFixture<SessionListComponent>,
@@ -72,6 +73,10 @@ fdescribe('SessionListComponent', () => {
       expect(element.querySelector('[well-title]').textContent).toContain(
         'Session 1'
       );
+      // Using DebugElement to test the same thing to show how we can use certain methods avaiable to the DebugElement wrapper in order to test our template
+      expect(
+        debugEl.query(By.css('[well-title]')).nativeElement.textContent
+      ).toContain('Session 1');
     });
   });
 });
