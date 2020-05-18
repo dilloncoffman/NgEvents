@@ -50,7 +50,7 @@ fdescribe('VoterService', () => {
       // Instead of checking that the exact 'options' argument for HttpHeaders was created, can just assume at least something was passed in some kind of object using Jasmine, since the options code isn't complex
       expect(mockHttp.post).toHaveBeenCalledWith(
         '/api/events/3/sessions/6/voters/joe',
-        {},
+        'joe',
         jasmine.any(Object)
       );
     });
