@@ -4,7 +4,7 @@ import { VoterService } from './voter.service';
 import { ISession } from '../shared';
 import { of } from 'rxjs';
 
-fdescribe('VoterService', () => {
+describe('VoterService', () => {
   let voterService: VoterService, mockHttp;
 
   beforeEach(() => {
