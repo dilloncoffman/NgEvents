@@ -15,8 +15,13 @@ fdescribe('SessionListComponent', () => {
 
   // this beforeEach needs to complete before we create the instance of the component
   beforeEach(async(() => {
-    let mockAuthService = {};
-    let mockVoterService = {};
+    let mockAuthService = {
+      isAuthenticated: () => true,
+      currentUser: { username: 'Dillon' },
+    };
+    let mockVoterService = {
+      userHasVoted: () => true,
+    };
 
     TestBed.configureTestingModule({
       imports: [],
@@ -35,7 +40,7 @@ fdescribe('SessionListComponent', () => {
   }));
 
   beforeEach(() => {
-    TestBed.createComponent(SessionListComponent);
+    fixture = TestBed.createComponent(SessionListComponent);
     component = fixture.componentInstance;
     debugEl = fixture.debugElement;
     element = fixture.nativeElement;
