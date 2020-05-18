@@ -1,16 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-
-import { ToastrService } from './toastr.service';
+import { TOASTR_TOKEN, Toastr } from './toastr.service';
 
 describe('ToastrService', () => {
-  let service: ToastrService;
-
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ToastrService);
+    let toastr: Toastr = window['toastr']; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
+
+    TestBed.configureTestingModule({
+      providers: [{ provide: TOASTR_TOKEN, useValue: toastr }],
+    }).compileComponents();
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    let toastr: Toastr = window['toastr']; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
+
+    expect(toastr).toBeTruthy();
   });
 });

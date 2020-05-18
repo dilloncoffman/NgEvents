@@ -1,16 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { JQueryService } from './j-query.service';
+import { JQUERY_TOKEN } from './j-query.service';
 
 describe('JQueryService', () => {
-  let service: JQueryService;
+  let jQuery: any = window['jQuery']; // let TypeScript know not to worry about Toastr since we know it's something declared in our global scope
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(JQueryService);
-  });
+  TestBed.configureTestingModule({
+    providers: [{ provide: JQUERY_TOKEN, useValue: jQuery }],
+  }).compileComponents();
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(jQuery).toBeTruthy();
   });
 });
